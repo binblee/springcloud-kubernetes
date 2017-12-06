@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<settings>
+        <profiles>
+        <profile>
+            <id>alibaba</id>
+                <repositories>
+                    <repository>
+                        <id>central</id>
+                        <name>Alibaba Repositories Group</name>
+                        <url>http://repo.alibaba-inc.com/nexus/content/groups/alirepositiry/</url>
+                    </repository>
+                </repositories>
+
+                <!-- ======================================================================== -->
+                <!--  Repositories for maven plugins          -->
+                <!-- ======================================================================== -->
+                <pluginRepositories>
+                    <pluginRepository>
+                <id>central</id>
+                <name>Alibaba Plugin Repos Group</name>
+                <url>http://repo.alibaba-inc.com/nexus/content/groups/alirepositiry/</url>
+                    </pluginRepository>
+                </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <pluginGroups>
+            <pluginGroup>com.alibaba.org.apache.maven.plugins</pluginGroup>
+            <pluginGroup>com.alibaba.maven.plugins</pluginGroup>
+    </pluginGroups>
+    <activeProfiles>
+    <activeProfile>alibaba</activeProfile>
+    </activeProfiles>
+
+    <mirrors>
+        <mirror>
+        <id>alimaven</id>
+        <name>aliyun maven</name>
+        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+</settings>

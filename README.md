@@ -11,10 +11,6 @@ docker-compose build
 docker-compose up -d
 ```
 
-## Deploy to Kubernetes cluster
-
-TBD
-
 ### Access the application
 
 Find out all mapping ports of Eureka and web services:
@@ -35,6 +31,11 @@ Web service is available at http://localhost:32770, and you should be able to ge
 $ curl http://localhost:32770
 BOOKSERVICE available
 ```
+
+## Deploy to Kubernetes cluster
+
+TBD
+
 
 ## P.S. Java 9 support
 

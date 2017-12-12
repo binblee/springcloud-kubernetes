@@ -34,8 +34,26 @@ BOOKSERVICE available
 
 ## Deploy to Kubernetes cluster
 
-TBD
+Run Kubernetes [deployment file](deploy/deployments.yml), it will create 3 deployments and 3 services:
 
+To see all deployments:
+```
+$ kubectl get deploy
+NAME                      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+springcloud-bookservice   1         1         1            1           2h
+springcloud-eureka        1         1         1            1           2h
+springcloud-web           3         3         3            3           2h
+```
+
+Get all services:
+
+```
+$ kubectl get svc
+NAME                      TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)         ...
+springcloud-bookservice   ClusterIP      172.19.9.22    <none>          8080/TCP
+springcloud-eureka        LoadBalancer   172.19.3.76    xx.xx.xx.xx     8761:30930/TCP
+web                       LoadBalancer   172.19.1.225   yy.yy.yy.yy     8080:32327/TCP
+```
 
 ## P.S. Java 9 support
 

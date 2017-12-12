@@ -1,0 +1,112 @@
+# Eureka
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: springcloud-eureka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springcloud-eureka
+  template:
+    metadata:
+      labels:
+        app: springcloud-eureka
+    spec:
+      containers:
+      - name: eureka
+        image: registry.cn-hangzhou.aliyuncs.com/jingshan/springcloud-eureka:reg-ip
+        ports:
+        - containerPort: 8761
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springcloud-eureka
+spec:
+  ports:
+  - port: 8761
+    targetPort: 8761
+    name: erueka-discovery-service-port-http
+  selector:
+    app: springcloud-eureka
+  type: LoadBalancer
+
+# Backend service
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: springcloud-bookservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springcloud-bookservice
+  template:
+    metadata:
+      labels:
+        app: springcloud-bookservice
+    spec:
+      containers:
+      - name: bookservice
+        image: registry.cn-hangzhou.aliyuncs.com/jingshan/springcloud-bookservice:reg-ip
+        ports:
+        - containerPort: 8080
+        env:
+          - name: EUREKA_SERVER_ADDRESS
+            value: "http://springcloud-eureka:8761/eureka"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springcloud-bookservice
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: bookservice-port-http
+  selector:
+    app: springcloud-bookservice
+
+
+# Web 
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: springcloud-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springcloud-web
+  template:
+    metadata:
+      labels:
+        app: springcloud-web
+    spec:
+      containers:
+      - name: web
+        image: registry.cn-hangzhou.aliyuncs.com/jingshan/springcloud-web:reg-ip
+        ports:
+        - containerPort: 8080
+        env:
+          - name: EUREKA_SERVER_ADDRESS
+            value: "http://springcloud-eureka:8761/eureka"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: web-port-http
+  selector:
+    app: springcloud-web
+  type: LoadBalancer

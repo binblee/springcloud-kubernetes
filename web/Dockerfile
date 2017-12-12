@@ -7,6 +7,8 @@ COPY . /app
 RUN mvn package
 
 FROM openjdk:8-jre-slim
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/' /etc/apt/sources.list
+RUN apt-get update && apt-get install -y iputils-ping curl
 COPY --from=build-env /app/target/*.jar /app.jar
 
 ENV JAVA_OPTS=""

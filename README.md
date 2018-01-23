@@ -1,4 +1,4 @@
-# SpringCloud Application on Kubernetes
+# SpringCloud Demo on Kubernetes
 
 ## Code reference
 [https://github.com/binblee/springcloud-swarm](https://github.com/binblee/springcloud-swarm)
